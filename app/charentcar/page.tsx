@@ -33,10 +33,10 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-8 mx-auto mb-12 max-w-4xl md:grid-cols-2">
 
             {/* Info 섹션 */}
-              <Link
-                href="/charentcar/info"
-                className="block p-8 bg-white rounded-2xl border border-gray-100 shadow-xl transition-all duration-500 group hover:shadow-2xl hover:border-blue-300 hover:scale-105"
-              >
+            <Link
+              href="/charentcar/info"
+              className="block p-8 bg-white rounded-2xl border border-gray-100 shadow-xl transition-all duration-500 group hover:shadow-2xl hover:border-blue-300 hover:scale-105"
+            >
               <div className="flex justify-center items-center mx-auto mb-6 w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl transition-all duration-300 group-hover:from-blue-200 group-hover:to-blue-300">
                 <Calendar className="w-10 h-10 text-blue-600" />
               </div>
@@ -52,10 +52,10 @@ export default function Home() {
             </Link>
 
             {/* Tool 섹션 */}
-              <Link
-                href="/charentcar/tools"
-                className="block p-8 bg-white rounded-2xl border border-gray-100 shadow-xl transition-all duration-500 group hover:shadow-2xl hover:border-green-300 hover:scale-105"
-              >
+            <Link
+              href="/charentcar/tools"
+              className="block p-8 bg-white rounded-2xl border border-gray-100 shadow-xl transition-all duration-500 group hover:shadow-2xl hover:border-green-300 hover:scale-105"
+            >
               <div className="flex justify-center items-center mx-auto mb-6 w-20 h-20 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl transition-all duration-300 group-hover:from-green-200 group-hover:to-green-300">
                 <Wrench className="w-10 h-10 text-green-600" />
               </div>
