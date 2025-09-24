@@ -21,13 +21,13 @@ export default function ToolLayout({ children, toolName }: ToolLayoutProps) {
             </div>
             <div className="flex items-center space-x-2">
               <Link
-                href="/tools"
+                href="/charentcar/tools"
                 className="px-3 py-1 text-sm text-gray-600 rounded transition-colors hover:text-green-600 hover:bg-green-50"
               >
                 도구목록
               </Link>
               <Link
-                href="/"
+                href="/charentcar"
                 className="flex items-center px-4 py-2 space-x-2 text-gray-600 rounded-lg transition-colors hover:text-blue-600 hover:bg-blue-50"
               >
                 <Car className="w-4 h-4" />

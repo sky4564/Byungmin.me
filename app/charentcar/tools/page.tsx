@@ -12,7 +12,7 @@ export default function ToolsPage() {
             <h1 className="text-2xl font-bold text-gray-900">렌터카 업무툴</h1>
           </div>
           <Link
-            href="/"
+            href="/charentcar"
             className="flex items-center px-4 py-2 space-x-2 text-gray-600 rounded-lg transition-colors hover:text-blue-600 hover:bg-blue-50"
           >
             <Car className="w-4 h-4" />
@@ -38,7 +38,7 @@ export default function ToolsPage() {
 
           <div className="grid grid-cols-1 gap-8 mb-12 md:grid-cols-2 lg:grid-cols-3">
             <Link
-              href="/tools/regular-calculator"
+              href="/charentcar/tools/regular-calculator"
               className="block p-6 text-left bg-white rounded-xl border border-gray-100 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-green-300 hover:scale-105"
             >
               <div className="flex justify-center items-center mx-auto mb-4 w-12 h-12 bg-green-100 rounded-lg">
@@ -53,7 +53,7 @@ export default function ToolsPage() {
             </Link>
 
             <Link
-              href="/tools/rental-calculator"
+              href="/charentcar/tools/rental-calculator"
               className="block p-6 text-left bg-white rounded-xl border border-gray-100 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-blue-300 hover:scale-105"
             >
               <div className="flex justify-center items-center mx-auto mb-4 w-12 h-12 bg-blue-100 rounded-lg">
@@ -68,7 +68,7 @@ export default function ToolsPage() {
             </Link>
 
             <Link
-              href="/tools/reservations"
+              href="/charentcar/tools/reservations"
               className="block p-6 text-left bg-white rounded-xl border border-gray-100 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-purple-300 hover:scale-105"
             >
               <div className="flex justify-center items-center mx-auto mb-4 w-12 h-12 bg-purple-100 rounded-lg">
@@ -83,7 +83,7 @@ export default function ToolsPage() {
             </Link>
 
             <Link
-              href="/tools/fuel-viewer"
+              href="/charentcar/tools/fuel-viewer"
               className="block p-6 text-left bg-white rounded-xl border border-gray-100 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-red-300 hover:scale-105"
             >
               <div className="flex justify-center items-center mx-auto mb-4 w-12 h-12 bg-red-100 rounded-lg">
@@ -98,7 +98,7 @@ export default function ToolsPage() {
             </Link>
 
             <Link
-              href="/tools/bank-settings"
+              href="/charentcar/tools/bank-settings"
               className="block p-6 text-left bg-white rounded-xl border border-gray-100 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-blue-300 hover:scale-105"
             >
               <div className="flex justify-center items-center mx-auto mb-4 w-12 h-12 bg-blue-100 rounded-lg">
@@ -113,7 +113,7 @@ export default function ToolsPage() {
             </Link>
 
             <Link
-              href="/tools/engine-oil"
+              href="/charentcar/tools/engine-oil"
               className="block p-6 text-left bg-white rounded-xl border border-gray-100 shadow-lg transition-all duration-300 hover:shadow-xl hover:border-orange-300 hover:scale-105"
             >
               <div className="flex justify-center items-center mx-auto mb-4 w-12 h-12 bg-orange-100 rounded-lg">

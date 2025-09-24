@@ -1,123 +1,120 @@
-import { Wrench, Car, Calendar, Settings, Users, BarChart3, Fuel } from 'lucide-react'
+import { Code2, Briefcase, User, Mail, Github, ExternalLink, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
-export default function Home() {
+export default function PortfolioHome() {
   return (
-    <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* 메인 헤더 */}
-      <header className="container px-4 py-8 mx-auto">
-        <nav className="flex justify-center items-center">
-          <div className="flex items-center space-x-3">
-            <Car className="w-10 h-10 text-blue-600" />
-            <h1 className="text-3xl font-bold text-gray-900">차렌터카 업무 시스템</h1>
-          </div>
-        </nav>
-      </header>
-
-      {/* 히어로 섹션 */}
-      <section className="container px-4 py-16 mx-auto text-center">
-        <div className="mx-auto max-w-4xl">
-          <div className="mb-12">
-            <div className="inline-flex justify-center items-center mb-8 w-24 h-24 bg-blue-100 rounded-full">
-              <Wrench className="w-12 h-12 text-blue-600" />
+    <main className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      {/* Hero Section */}
+      <section className="container px-4 py-16 mx-auto">
+        <div className="mx-auto max-w-4xl text-center">
+          <div className="mb-8">
+            <div className="inline-flex justify-center items-center mb-6 w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full">
+              <Code2 className="w-12 h-12 text-white" />
             </div>
-            <h2 className="mb-6 text-6xl font-bold text-gray-900">
-              업무를 <span className="text-blue-600">스마트하게</span>
-            </h2>
-            <p className="mb-12 text-2xl leading-relaxed text-gray-600">
-              회사의 모든 업무를 효율화하는 통합 정보시스템 CIS
+            <h1 className="mb-6 text-6xl font-bold text-gray-900">
+              안녕하세요, <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">병민</span>입니다
+            </h1>
+            <p className="mb-8 text-2xl leading-relaxed text-gray-600">
+              풀스택 개발자 | 효율적인 솔루션을 만드는 것을 좋아합니다
             </p>
           </div>
 
-          {/* 섹션 카드들 */}
-          <div className="grid grid-cols-1 gap-8 mx-auto mb-12 max-w-4xl md:grid-cols-2">
+          {/* Skills */}
+          <div className="flex justify-center flex-wrap gap-3 mb-12">
+            {['Next.js', 'React', 'TypeScript', 'Node.js', 'Python', 'AWS'].map((skill) => (
+              <span key={skill} className="px-4 py-2 text-sm font-medium text-blue-700 bg-blue-100 rounded-full">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            {/* Info 섹션 */}
-            <Link
-              href="/info"
-              className="block p-8 bg-white rounded-2xl border border-gray-100 shadow-xl transition-all duration-500 group hover:shadow-2xl hover:border-blue-300 hover:scale-105"
+      {/* Projects Section */}
+      <section className="container px-4 py-16 mx-auto">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="mb-12 text-4xl font-bold text-center text-gray-900">프로젝트</h2>
+          
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            
+            {/* Charentcar Project - 메인 프로젝트로 강조 */}
+            <Link 
+              href="/charentcar"
+              className="group block md:col-span-2 lg:col-span-2"
             >
-              <div className="flex justify-center items-center mx-auto mb-6 w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl transition-all duration-300 group-hover:from-blue-200 group-hover:to-blue-300">
-                <Calendar className="w-10 h-10 text-blue-600" />
-              </div>
-              <h3 className="mb-4 text-2xl font-bold text-gray-900">📊 Info</h3>
-              <p className="mb-6 leading-relaxed text-gray-600">
-                회사 정보, 공지사항, 업무 현황 등<br />
-                전반적인 정보를 확인하세요
-              </p>
-              <div className="inline-flex items-center font-semibold text-blue-600">
-                <span>정보 확인하기</span>
-                <Calendar className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <div className="p-8 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl border-2 border-green-200 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-green-300 hover:scale-105">
+                <div className="flex justify-between items-start mb-6">
+                  <div className="flex justify-center items-center w-16 h-16 bg-green-500 rounded-2xl">
+                    <Briefcase className="w-8 h-8 text-white" />
+                  </div>
+                  <ExternalLink className="w-6 h-6 text-green-600 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </div>
+                
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">차렌터카 정보 시스템 (CIS)</h3>
+                <p className="mb-6 text-gray-600 leading-relaxed">
+                  렌터카 업무의 모든 과정을 디지털화한 통합 관리 시스템입니다. 
+                  견적 계산, 예약 관리, 차량 조회, 은행 API 연동 등 실무에 필요한 
+                  모든 기능을 하나의 플랫폼에서 제공합니다.
+                </p>
+                
+                <div className="flex justify-between items-end">
+                  <div className="flex flex-wrap gap-2">
+                    <span className="px-3 py-1 text-xs font-medium text-green-700 bg-green-200 rounded-full">Next.js</span>
+                    <span className="px-3 py-1 text-xs font-medium text-green-700 bg-green-200 rounded-full">TypeScript</span>
+                    <span className="px-3 py-1 text-xs font-medium text-green-700 bg-green-200 rounded-full">Tailwind</span>
+                  </div>
+                  <div className="flex items-center text-green-600 font-semibold group-hover:translate-x-2 transition-transform">
+                    <span>프로젝트 보기</span>
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </div>
+                </div>
               </div>
             </Link>
 
-            {/* Tool 섹션 */}
-            <Link
-              href="/tools"
-              className="block p-8 bg-white rounded-2xl border border-gray-100 shadow-xl transition-all duration-500 group hover:shadow-2xl hover:border-green-300 hover:scale-105"
-            >
-              <div className="flex justify-center items-center mx-auto mb-6 w-20 h-20 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl transition-all duration-300 group-hover:from-green-200 group-hover:to-green-300">
-                <Wrench className="w-10 h-10 text-green-600" />
+            {/* 다른 프로젝트들 - 준비중 */}
+            <div className="p-6 bg-white rounded-2xl border border-gray-200 shadow-sm">
+              <div className="flex justify-center items-center mb-4 w-12 h-12 bg-gray-100 rounded-lg">
+                <Code2 className="w-6 h-6 text-gray-400" />
               </div>
-              <h3 className="mb-4 text-2xl font-bold text-gray-900">🛠️ Tool</h3>
-              <p className="mb-6 leading-relaxed text-gray-600">
-                렌터카 견적 계산, 예약 관리 등<br />
-                업무 도구들을 사용하세요
-              </p>
-              <div className="inline-flex items-center font-semibold text-green-600">
-                <span>도구 사용하기</span>
-                <Wrench className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+              <h3 className="mb-3 text-lg font-bold text-gray-900">프로젝트 #2</h3>
+              <p className="mb-4 text-sm text-gray-600">다음 프로젝트를 준비중입니다...</p>
+              <span className="px-3 py-1 text-xs text-gray-500 bg-gray-100 rounded-full">준비중</span>
+            </div>
+
+            <div className="p-6 bg-white rounded-2xl border border-gray-200 shadow-sm">
+              <div className="flex justify-center items-center mb-4 w-12 h-12 bg-gray-100 rounded-lg">
+                <Code2 className="w-6 h-6 text-gray-400" />
               </div>
-            </Link>
+              <h3 className="mb-3 text-lg font-bold text-gray-900">프로젝트 #3</h3>
+              <p className="mb-4 text-sm text-gray-600">다음 프로젝트를 준비중입니다...</p>
+              <span className="px-3 py-1 text-xs text-gray-500 bg-gray-100 rounded-full">준비중</span>
+            </div>
+
           </div>
+        </div>
+      </section>
 
-          {/* 추가 예정 섹션 미리보기 */}
-          <div className="grid grid-cols-2 gap-4 mx-auto max-w-2xl opacity-50 md:grid-cols-4">
-            <div className="p-4 bg-gray-100 rounded-xl border-2 border-gray-300 border-dashed">
-              <div className="flex justify-center items-center mx-auto mb-2 w-8 h-8 bg-gray-200 rounded-lg">
-                <BarChart3 className="w-4 h-4 text-gray-400" />
-              </div>
-              <div className="text-sm font-semibold text-gray-500">📈 Analytics</div>
-              <div className="mt-1 text-xs text-gray-400">준비중</div>
-            </div>
-
-            <div className="p-4 bg-gray-100 rounded-xl border-2 border-gray-300 border-dashed">
-              <div className="flex justify-center items-center mx-auto mb-2 w-8 h-8 bg-gray-200 rounded-lg">
-                <Settings className="w-4 h-4 text-gray-400" />
-              </div>
-              <div className="text-sm font-semibold text-gray-500">⚙️ Admin</div>
-              <div className="mt-1 text-xs text-gray-400">준비중</div>
-            </div>
-
-            <div className="p-4 bg-gray-100 rounded-xl border-2 border-gray-300 border-dashed">
-              <div className="flex justify-center items-center mx-auto mb-2 w-8 h-8 bg-gray-200 rounded-lg">
-                <Users className="w-4 h-4 text-gray-400" />
-              </div>
-              <div className="text-sm font-semibold text-gray-500">👥 Team</div>
-              <div className="mt-1 text-xs text-gray-400">준비중</div>
-            </div>
-
-            <div className="p-4 bg-gray-100 rounded-xl border-2 border-gray-300 border-dashed">
-              <div className="flex justify-center items-center mx-auto mb-2 w-8 h-8 bg-gray-200 rounded-lg">
-                <Fuel className="w-4 h-4 text-gray-400" />
-              </div>
-              <div className="text-sm font-semibold text-gray-500">📋 More</div>
-              <div className="mt-1 text-xs text-gray-400">준비중</div>
-            </div>
+      {/* Contact Section */}
+      <section className="container px-4 py-16 mx-auto">
+        <div className="mx-auto max-w-2xl text-center">
+          <h2 className="mb-8 text-3xl font-bold text-gray-900">연락하기</h2>
+          <div className="flex justify-center space-x-6">
+            <a href="mailto:your.email@example.com" className="flex items-center px-6 py-3 space-x-2 text-blue-600 bg-blue-50 rounded-lg transition-colors hover:bg-blue-100">
+              <Mail className="w-5 h-5" />
+              <span>이메일</span>
+            </a>
+            <a href="https://github.com/sky4564" target="_blank" rel="noopener noreferrer" className="flex items-center px-6 py-3 space-x-2 text-gray-700 bg-gray-100 rounded-lg transition-colors hover:bg-gray-200">
+              <Github className="w-5 h-5" />
+              <span>GitHub</span>
+            </a>
           </div>
-
-          <p className="mt-6 text-sm text-gray-500">더 많은 기능들이 곧 추가됩니다!</p>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="py-8 text-white bg-gray-900">
         <div className="container px-4 mx-auto text-center">
-          <div className="flex justify-center items-center mb-4 space-x-3">
-            <Car className="w-6 h-6" />
-            <span className="text-lg font-semibold">회사 업무 시스템</span>
-          </div>
-          <p className="text-sm text-gray-400">모든 업무를 더 스마트하게, 더 효율적으로</p>
+          <p className="text-gray-400">© 2024 병민. 모든 권리 보유.</p>
         </div>
       </footer>
     </main>

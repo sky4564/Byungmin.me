@@ -13,7 +13,7 @@ export default function InfoPage() {
               <h1 className="text-2xl font-bold text-gray-900">회사 정보</h1>
             </div>
             <Link
-              href="/"
+              href="/charentcar"
               className="flex items-center px-4 py-2 space-x-2 text-gray-600 rounded-lg transition-colors hover:text-blue-600 hover:bg-blue-50"
             >
               <Car className="w-4 h-4" />
