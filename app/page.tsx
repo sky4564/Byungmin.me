@@ -146,13 +146,19 @@ const projectCardsByLanguage: Record<Language, ProjectCard[]> = {
 
 const experienceByLanguage = {
   ko: [
-    { title: 'Full-Stack Developer', period: '2023 - Present', detail: '내부 운영 도구와 고객용 서비스 페이지를 구축했습니다.' },
+    { title: '42서울 라피신 수료', period: '초기 경험', detail: '집중 몰입형 코딩 부트캠프(La Piscine) 과정을 수료하며 C 기반 문제 해결, 협업, 코드 리뷰 문화의 기초를 체득했습니다.' },
+    { title: '쿠팡 해커톤 참가', period: '24-hour Agile Sprint', detail: '애자일 스크럼 기반 협업(Agile Scrum-based Collaboration)으로 아이디어 기획부터 프로토타입 구현·발표까지 24시간 내 완료.' },
+    { title: '정보처리기사', period: '자격증', detail: '국가기술자격 정보처리기사 취득 (소프트웨어 설계, 개발, 데이터베이스, 운영 역량 검증).' },
+    { title: '소프트빌더 사업자 운영 (프리랜서)', period: '2023 - Present', detail: '소프트빌더를 운영하며 외주 프로젝트를 수행하고, 고객 요구사항에 맞춘 웹/업무 시스템을 프리랜서로 개발·납품하고 있습니다.' },
     { title: 'Automation Projects', period: '2022 - Present', detail: '자동화로 반복 수작업을 줄이고 업무 속도를 개선했습니다.' },
     { title: 'Cloud & Infra', period: '2021 - Present', detail: '배포, 모니터링, 인프라 안정성 운영을 담당했습니다.' },
     { title: 'Data-driven Features', period: 'Ongoing', detail: '지표 기반 개선으로 제품 의사결정을 고도화했습니다.' },
   ],
   en: [
-    { title: 'Full-Stack Developer', period: '2023 - Present', detail: 'Built internal operation tools and customer service pages.' },
+    { title: 'Completed 42 Seoul La Piscine', period: 'Early Experience', detail: 'Completed the immersive La Piscine program, strengthening fundamentals in C-based problem solving, peer collaboration, and code-review culture.' },
+    { title: 'Coupang Hackathon Participant', period: '24-hour Agile Sprint', detail: 'Executed ideation, prototyping, and presentation within 24 hours through Agile Scrum-based Collaboration.' },
+    { title: 'Engineer Information Processing', period: 'Certification', detail: 'Korean national technical certification validating software design, development, database, and operations capability.' },
+    { title: 'SoftBuilder Owner (Freelancer)', period: '2023 - Present', detail: 'Operating SoftBuilder while delivering outsourced projects as a freelancer, building and shipping custom web and business systems for clients.' },
     { title: 'Automation Projects', period: '2022 - Present', detail: 'Reduced manual work with scripts and workflow optimization.' },
     { title: 'Cloud & Infra', period: '2021 - Present', detail: 'Managed deployment, monitoring, and system reliability.' },
     { title: 'Data-driven Features', period: 'Ongoing', detail: 'Improved product decisions through measurable indicators.' },
@@ -161,7 +167,13 @@ const experienceByLanguage = {
 
 export default function PortfolioHome() {
   const projectsRef = useRef<HTMLDivElement>(null)
+  const experienceSectionRef = useRef<HTMLElement>(null)
+  const timelineRef = useRef<HTMLDivElement>(null)
+  const experienceItemRefs = useRef<(HTMLElement | null)[]>([])
+  const experienceDotRefs = useRef<(HTMLDivElement | null)[]>([])
   const [activeProjectIndex, setActiveProjectIndex] = useState(0)
+  const [activeExperienceIndex, setActiveExperienceIndex] = useState<number | null>(null)
+  const [laserPosition, setLaserPosition] = useState(0)
   const [language, setLanguage] = useState<Language>('en')
   const [backgroundTheme, setBackgroundTheme] = useState<BackgroundTheme>('dark')
   const isDark = backgroundTheme === 'dark'
@@ -241,6 +253,67 @@ export default function PortfolioHome() {
     window.addEventListener('resize', updateActiveProjectIndex)
     return () => window.removeEventListener('resize', updateActiveProjectIndex)
   }, [updateActiveProjectIndex])
+
+  useEffect(() => {
+    const syncExperienceLaser = () => {
+      const section = experienceSectionRef.current
+      const timeline = timelineRef.current
+      if (!section || !timeline) return
+
+      const viewportHeight = window.innerHeight
+      const timelineRect = timeline.getBoundingClientRect()
+      const viewportCenterY = viewportHeight * 0.48
+      const rawLaserY = viewportCenterY - timelineRect.top
+      const dotCenters = experienceDotRefs.current
+        .map((dot) => {
+          if (!dot) return null
+          const rect = dot.getBoundingClientRect()
+          return rect.top - timelineRect.top + rect.height / 2
+        })
+        .filter((value): value is number => value !== null)
+
+      if (dotCenters.length === 0) return
+
+      const lastDotCenter = dotCenters[dotCenters.length - 1] + 5
+      const clampedLaserY = Math.max(0, Math.min(lastDotCenter, rawLaserY))
+      setLaserPosition(clampedLaserY)
+
+      // 마지막 도트 이후 스크롤에서는 마지막 상태로 고정
+      if (rawLaserY >= lastDotCenter) {
+        setActiveExperienceIndex(dotCenters.length - 1)
+        return
+      }
+
+      let closestIndex: number | null = null
+      let closestDistance = Number.POSITIVE_INFINITY
+      dotCenters.forEach((dotCenterOnTimeline, index) => {
+        const distance = Math.abs(dotCenterOnTimeline - clampedLaserY)
+        if (distance < closestDistance) {
+          closestDistance = distance
+          closestIndex = index
+        }
+      })
+      // 시작 지점에서는 첫 카드 점등, 이후에는 레이저 근처의 가장 가까운 도트를 점등
+      if (clampedLaserY <= 20) {
+        setActiveExperienceIndex(0)
+      } else {
+        // 근처 범위를 넉넉히 잡아 UX 개선, 그래도 없으면 가장 가까운 도트 fallback
+        if (closestDistance <= 58) {
+          setActiveExperienceIndex(closestIndex)
+        } else {
+          setActiveExperienceIndex(closestIndex ?? 0)
+        }
+      }
+    }
+
+    syncExperienceLaser()
+    window.addEventListener('scroll', syncExperienceLaser, { passive: true })
+    window.addEventListener('resize', syncExperienceLaser)
+    return () => {
+      window.removeEventListener('scroll', syncExperienceLaser)
+      window.removeEventListener('resize', syncExperienceLaser)
+    }
+  }, [experienceItems.length])
 
   const backgroundStyles: Record<BackgroundTheme, CSSProperties> = {
     dark: {
@@ -490,18 +563,61 @@ export default function PortfolioHome() {
         </div>
       </section>
 
-      <section id="experience" className="container px-4 py-24 mx-auto scroll-mt-24 md:py-28">
+      <section id="experience" ref={experienceSectionRef} className="container px-4 py-24 mx-auto scroll-mt-24 md:py-28">
         <div className="mx-auto max-w-5xl">
           <h2 className="mb-10 text-3xl font-bold md:text-4xl">{t.experience.title}</h2>
-          <div className="relative pl-6 space-y-6 md:pl-10">
-            <div className={`absolute top-0 bottom-0 left-2 w-px md:left-4 ${isDark ? 'bg-zinc-800' : 'bg-zinc-400'}`} />
-            {experienceItems.map((item) => (
-              <article key={item.title} className={`relative p-6 rounded-2xl border ${isDark ? 'bg-zinc-900/70 border-zinc-800' : 'bg-white/92 border-zinc-300'}`}>
-                <div className={`absolute top-7 -left-[1.65rem] w-3 h-3 bg-emerald-400 rounded-full ring-4 md:-left-[2.15rem] ${isDark ? 'ring-zinc-950' : 'ring-white'}`} />
-                <p className="mb-2 text-xs tracking-wider text-emerald-400 uppercase">{item.period}</p>
-                <h3 className="mb-2 text-xl font-semibold">{item.title}</h3>
-                <p className={`text-sm ${isDark ? 'text-zinc-400' : 'text-zinc-700'}`}>{item.detail}</p>
-              </article>
+          <div ref={timelineRef} className="relative space-y-12 md:space-y-16">
+            <div className={`absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px ${isDark ? 'bg-zinc-800' : 'bg-zinc-400'}`} />
+            <div
+              className="pointer-events-none absolute top-0 z-10 left-1/2 -translate-x-1/2 w-[3px] bg-emerald-400/70 shadow-[0_0_14px_rgba(16,185,129,0.75)] transition-all duration-150"
+              style={{ height: `${Math.max(0, laserPosition - 2)}px` }}
+            />
+            <div
+              className="pointer-events-none absolute z-20 w-20 h-20 rounded-full bg-[radial-gradient(circle,rgba(52,211,153,0.55)_0%,rgba(16,185,129,0.18)_45%,rgba(16,185,129,0)_75%)] blur-sm transition-transform duration-150"
+              style={{ left: '50%', top: `${laserPosition}px`, transform: 'translate(-50%, -50%)' }}
+            />
+            <div
+              className="pointer-events-none absolute z-30 w-3.5 h-3.5 rounded-full bg-emerald-300 shadow-[0_0_18px_rgba(16,185,129,1)] transition-transform duration-150"
+              style={{ left: '50%', top: `${laserPosition}px`, transform: 'translate(-50%, -50%)' }}
+            />
+            {experienceItems.map((item, index) => (
+              <div key={item.title} className="grid grid-cols-[1fr_56px_1fr] items-center">
+                <article
+                  ref={(el) => {
+                    experienceItemRefs.current[index] = el
+                  }}
+                  className={`relative z-20 w-[min(100%,20rem)] aspect-square p-6 rounded-2xl border transition-all duration-300 ${
+                    index % 2 === 0 ? 'col-start-1 justify-self-end' : 'col-start-3 justify-self-start'
+                  } ${
+                    index === activeExperienceIndex
+                      ? isDark
+                        ? 'bg-zinc-900/95 border-emerald-400/70 shadow-[0_0_26px_rgba(16,185,129,0.22)]'
+                        : 'bg-white border-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.2)]'
+                      : isDark
+                        ? 'bg-zinc-900/70 border-zinc-800'
+                        : 'bg-white/92 border-zinc-300'
+                  }`}
+                >
+                  <p className="mb-2 text-xs tracking-wider text-emerald-400 uppercase">{item.period}</p>
+                  <h3 className="mb-2 text-xl font-semibold">{item.title}</h3>
+                  <p className={`text-sm leading-relaxed ${isDark ? 'text-zinc-400' : 'text-zinc-700'}`}>{item.detail}</p>
+                </article>
+
+                <div className="col-start-2 row-start-1 flex justify-center">
+                  <div
+                    ref={(el) => {
+                      experienceDotRefs.current[index] = el
+                    }}
+                    className={`w-3 h-3 rounded-full ring-4 transition-all duration-300 ${
+                      index === activeExperienceIndex
+                        ? 'bg-emerald-400 scale-125 shadow-[0_0_14px_rgba(16,185,129,0.9)]'
+                        : isDark
+                          ? 'bg-zinc-600'
+                          : 'bg-zinc-400'
+                    } ${isDark ? 'ring-zinc-950' : 'ring-white'}`}
+                  />
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -536,6 +652,8 @@ export default function PortfolioHome() {
           </div>
         </div>
       </section>
+
+      <div className="h-72 md:h-[34rem]" />
 
       <footer className={`py-8 mt-auto border-t ${isDark ? 'bg-zinc-950 border-zinc-900' : 'bg-slate-50 border-zinc-300'}`}>
         <div className="container px-4 mx-auto text-center">
