@@ -1,7 +1,42 @@
+'use client'
+
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Wrench, Car, Calendar, Settings, Users, BarChart3, Fuel } from 'lucide-react'
 import Link from 'next/link'
 
 export default function Home() {
+  const router = useRouter()
+  const [showAdminModal, setShowAdminModal] = useState(false)
+  const [adminPasscode, setAdminPasscode] = useState('')
+  const [adminError, setAdminError] = useState('')
+  const ADMIN_PASSCODE = '615323'
+
+  const handleInfoCardClick = () => {
+    setAdminPasscode('')
+    setAdminError('')
+    setShowAdminModal(true)
+  }
+
+  const closeAdminModal = () => {
+    setShowAdminModal(false)
+    setAdminPasscode('')
+    setAdminError('')
+  }
+
+  const handleAdminSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (adminPasscode === ADMIN_PASSCODE) {
+      closeAdminModal()
+      router.push('/charentcar/info')
+      return
+    }
+
+    setAdminError('비밀번호가 올바르지 않습니다.')
+    setAdminPasscode('')
+  }
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       {/* 메인 헤더 */}
@@ -33,9 +68,10 @@ export default function Home() {
           <div className="grid grid-cols-1 gap-8 mx-auto mb-12 max-w-4xl md:grid-cols-2">
 
             {/* Info 섹션 */}
-            <Link
-              href="/charentcar/info"
-              className="block p-8 bg-white rounded-2xl border border-gray-100 shadow-xl transition-all duration-500 group hover:shadow-2xl hover:border-blue-300 hover:scale-105"
+            <button
+              type="button"
+              onClick={handleInfoCardClick}
+              className="block p-8 w-full text-center bg-white rounded-2xl border border-gray-100 shadow-xl transition-all duration-500 group hover:shadow-2xl hover:border-blue-300 hover:scale-105"
             >
               <div className="flex justify-center items-center mx-auto mb-6 w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl transition-all duration-300 group-hover:from-blue-200 group-hover:to-blue-300">
                 <Calendar className="w-10 h-10 text-blue-600" />
@@ -46,10 +82,10 @@ export default function Home() {
                 전반적인 정보를 확인하세요
               </p>
               <div className="inline-flex items-center font-semibold text-blue-600">
-                <span>정보 확인하기</span>
+                <span>총관리자 비밀번호 입력</span>
                 <Calendar className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
               </div>
-            </Link>
+            </button>
 
             {/* Tool 섹션 */}
             <Link
@@ -109,6 +145,44 @@ export default function Home() {
           <p className="mt-6 text-sm text-gray-500">더 많은 기능들이 곧 추가됩니다!</p>
         </div>
       </section>
+
+      {showAdminModal && (
+        <div className="flex fixed inset-0 z-50 justify-center items-center p-4 bg-black/40">
+          <div className="w-full max-w-sm p-6 bg-white rounded-2xl shadow-2xl">
+            <h3 className="mb-2 text-xl font-bold text-gray-900">총관리자 인증</h3>
+            <p className="mb-4 text-sm text-gray-600">Info 섹션 접근을 위해 비밀번호를 입력하세요.</p>
+
+            <form onSubmit={handleAdminSubmit} className="space-y-3">
+              <input
+                type="password"
+                value={adminPasscode}
+                onChange={(e) => setAdminPasscode(e.target.value)}
+                placeholder="총관리자 비밀번호"
+                className="px-4 py-3 w-full rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                autoFocus
+                required
+              />
+              {adminError && <p className="text-sm text-red-600">{adminError}</p>}
+
+              <div className="flex gap-2 justify-end">
+                <button
+                  type="button"
+                  onClick={closeAdminModal}
+                  className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
+                >
+                  취소
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+                >
+                  확인
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       {/* Footer */}
       <footer className="py-8 text-white bg-gray-900">
