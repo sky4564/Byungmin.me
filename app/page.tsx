@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { Code2, Briefcase, Mail, ExternalLink, ArrowRight, MessageCircle, Sun, Moon } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 declare global {
   interface Window {
@@ -161,7 +162,7 @@ const experienceByLanguage = {
 export default function PortfolioHome() {
   const projectsRef = useRef<HTMLDivElement>(null)
   const [activeProjectIndex, setActiveProjectIndex] = useState(0)
-  const [language, setLanguage] = useState<Language>('ko')
+  const [language, setLanguage] = useState<Language>('en')
   const [backgroundTheme, setBackgroundTheme] = useState<BackgroundTheme>('dark')
   const isDark = backgroundTheme === 'dark'
   const t = uiText[language]
@@ -258,7 +259,7 @@ export default function PortfolioHome() {
       <header className={`sticky top-0 z-40 border-b backdrop-blur-xl ${isDark ? 'bg-zinc-950/70 border-zinc-900' : 'bg-white/85 border-zinc-300'}`}>
         <div className="container flex justify-between items-center px-4 py-4 mx-auto">
           <a href="#home" className="font-mono text-sm text-emerald-400">
-            root@byeongmin:~$
+            root@byungmin:~$
           </a>
           <nav className="flex gap-2 items-center text-sm">
             <a href="#home" className={`px-3 py-1.5 rounded-lg ${isDark ? 'text-zinc-300 hover:text-white hover:bg-zinc-800' : 'text-zinc-700 hover:text-black hover:bg-zinc-200'}`}>{t.nav.home}</a>
@@ -299,12 +300,12 @@ export default function PortfolioHome() {
 
       <section id="home" className="container px-4 py-24 mx-auto scroll-mt-24 md:py-28">
         <div className="mx-auto max-w-5xl">
-          <p className="mb-8 font-mono text-sm text-emerald-400">&gt;root@byeongmin:~$ build_portfolio --style modern-terminal</p>
+          <p className="mb-8 font-mono text-sm text-emerald-400">&gt;root@byungmin:~$ build_portfolio --style modern-terminal</p>
 
-          <div className="grid gap-10 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr]">
             <div>
               <h1 className="mb-5 text-5xl font-bold leading-tight md:text-7xl">
-                Byeongmin
+                Byungmin
                 <span className="block text-emerald-400">{t.hero.subtitle}</span>
               </h1>
               <p className={`max-w-2xl text-lg leading-relaxed md:text-xl ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>
@@ -312,18 +313,56 @@ export default function PortfolioHome() {
               </p>
             </div>
 
-            <div className={`p-6 rounded-2xl border ${isDark ? 'bg-zinc-900/70 border-zinc-800' : 'bg-white/90 border-zinc-300'}`}>
-              <div className="flex items-center mb-4">
-                <Code2 className="w-6 h-6 mr-2 text-emerald-400" />
-                <h2 className={`text-sm font-semibold tracking-wide ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>{t.hero.profileTitle}</h2>
+            <div className="space-y-5">
+              <div className={`overflow-hidden relative rounded-2xl border ${isDark ? 'bg-zinc-900/70 border-emerald-800/60' : 'bg-white/90 border-emerald-300'}`}>
+                <div className="relative h-[320px] w-full">
+                  <div
+                    className={`absolute inset-0 ${
+                      isDark
+                        ? 'bg-[radial-gradient(circle_at_20%_15%,rgba(16,185,129,0.35),transparent_45%),radial-gradient(circle_at_80%_20%,rgba(34,197,94,0.25),transparent_40%),linear-gradient(180deg,#052e16_0%,#064e3b_55%,#022c22_100%)]'
+                        : 'bg-[radial-gradient(circle_at_20%_15%,rgba(16,185,129,0.22),transparent_45%),radial-gradient(circle_at_80%_20%,rgba(34,197,94,0.18),transparent_40%),linear-gradient(180deg,#dcfce7_0%,#bbf7d0_55%,#86efac_100%)]'
+                    }`}
+                  />
+                  <Image
+                    src="/images/배경.png"
+                    alt="Byungmin portrait"
+                    fill
+                    sizes="(min-width: 1024px) 32vw, 100vw"
+                    className="object-cover object-center"
+                    priority
+                  />
+                  <div className="absolute inset-0 flex justify-center items-center">
+                    <div className={`relative overflow-hidden w-52 aspect-[413/600] rounded-xl border-2 shadow-2xl ${isDark ? 'border-zinc-300/70 bg-zinc-900/40' : 'border-white/90 bg-white/30'}`}>
+                      <Image
+                        src="/images/증명사진.jpeg"
+                        alt="Byungmin profile"
+                        fill
+                        sizes="176px"
+                        className="object-cover"
+                      />
+                    </div>
+                  </div>
+                  <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-t from-black/70 via-black/20 to-transparent' : 'bg-gradient-to-t from-black/45 via-black/10 to-transparent'}`} />
+                  <div className="absolute right-4 bottom-4 left-4">
+                    <p className="font-mono text-xs tracking-wider text-emerald-300">STATUS: AVAILABLE FOR PROJECTS</p>
+                    <h2 className="mt-1 text-xl font-bold text-white">Byungmin</h2>
+                  </div>
+                </div>
               </div>
-              <p className={`mb-4 text-sm ${isDark ? 'text-zinc-400' : 'text-zinc-700'}`}>{t.hero.profileDesc}</p>
-              <div className="flex flex-wrap gap-2">
-                {['Next.js', 'React', 'TypeScript', 'Node.js', 'Automation', 'Cloud'].map((skill) => (
-                  <span key={skill} className={`px-3 py-1 text-xs font-medium rounded-full border ${isDark ? 'text-zinc-200 bg-zinc-800 border-zinc-700' : 'text-zinc-800 bg-zinc-100 border-zinc-400'}`}>
-                    {skill}
-                  </span>
-                ))}
+
+              <div className={`p-6 rounded-2xl border ${isDark ? 'bg-zinc-900/70 border-zinc-800' : 'bg-white/90 border-zinc-300'}`}>
+                <div className="flex items-center mb-4">
+                  <Code2 className="w-6 h-6 mr-2 text-emerald-400" />
+                  <h2 className={`text-sm font-semibold tracking-wide ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>{t.hero.profileTitle}</h2>
+                </div>
+                <p className={`mb-4 text-sm ${isDark ? 'text-zinc-400' : 'text-zinc-700'}`}>{t.hero.profileDesc}</p>
+                <div className="flex flex-wrap gap-2">
+                  {['Next.js', 'React', 'TypeScript', 'Node.js', 'Automation', 'Cloud'].map((skill) => (
+                    <span key={skill} className={`px-3 py-1 text-xs font-medium rounded-full border ${isDark ? 'text-zinc-200 bg-zinc-800 border-zinc-700' : 'text-zinc-800 bg-zinc-100 border-zinc-400'}`}>
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -500,7 +539,7 @@ export default function PortfolioHome() {
 
       <footer className={`py-8 mt-auto border-t ${isDark ? 'bg-zinc-950 border-zinc-900' : 'bg-slate-50 border-zinc-300'}`}>
         <div className="container px-4 mx-auto text-center">
-          <p className={isDark ? 'text-zinc-500' : 'text-zinc-600'}>© 2026 Byeongmin. All rights reserved.</p>
+          <p className={isDark ? 'text-zinc-500' : 'text-zinc-600'}>© 2026 Byungmin. All rights reserved.</p>
         </div>
       </footer>
     </main>

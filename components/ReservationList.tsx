@@ -580,7 +580,7 @@ export default function ReservationList() {
           <p>1. 국민은행 인터넷뱅킹 → 조회 → 입출금내역 → CSV 다운로드</p>
           <p>2. 위의 "📄 CSV업로드" 버튼으로 파일 업로드</p>
           <p>3. 자동으로 예약과 입금내역 매칭 → 예약 확정</p>
-          <p className="text-blue-600 font-semibold">💡 테스트용 샘플 CSV: sample_bank_transactions.csv (프로젝트 폴더)</p>
+          <p className="text-blue-600 font-semibold">💡 테스트용 샘플 CSV: public/data/bank/sample_bank_transactions.csv</p>
         </div>
         <button
           onClick={createSampleReservations}

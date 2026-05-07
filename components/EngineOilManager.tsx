@@ -38,7 +38,7 @@ const EngineOilManager: React.FC = () => {
   const [showAddForm, setShowAddForm] = useState(false)
   const [filterStatus, setFilterStatus] = useState<'all' | 'normal' | 'warning' | 'overdue'>('all')
 
-  // 현재차량현황.csv 기반 최신 차량별 엔진오일 사양 데이터
+  // public/vehicle-data/현재차량현황.csv 기반 최신 차량별 엔진오일 사양 데이터
   const vehicleOilSpecs: VehicleOilSpec[] = [
     // 경차
     { vehicleId: '4', vehicleName: '모닝', vehicleNumber: '66하1833', category: '경차', fuelType: '가솔린', engineOilType: '5W-30', oilCapacity: '3.3L', changeInterval: 6, mileageInterval: 10000, currentMileage: 96842 },
@@ -132,7 +132,7 @@ const EngineOilManager: React.FC = () => {
     { vehicleId: '46', vehicleName: '포터2냉동탑차', vehicleNumber: '826나1489', category: '상용차', fuelType: '디젤', engineOilType: '15W-40', oilCapacity: '5.5L', changeInterval: 6, mileageInterval: 10000, currentMileage: 28291 }
   ]
 
-  // 현재차량현황.csv 기반 실제 주행거리 반영 엔진오일 교체 기록
+  // public/vehicle-data/현재차량현황.csv 기반 실제 주행거리 반영 엔진오일 교체 기록
   const sampleOilRecords: OilChangeRecord[] = [
     // 교체가 심각하게 필요한 차량들 (현재 주행거리가 매우 높음)
     {

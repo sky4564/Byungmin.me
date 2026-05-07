@@ -108,12 +108,12 @@ export default function FuelTypeViewer() {
     try {
       setLoading(true)
 
-      // 현재차량현황.csv 데이터 (실제 보유 차량)
-      const currentVehiclesResponse = await fetch('/현재차량현황.csv')
+      // public/vehicle-data/현재차량현황.csv 데이터 (실제 보유 차량)
+      const currentVehiclesResponse = await fetch('/vehicle-data/현재차량현황.csv')
       const currentVehiclesText = await currentVehiclesResponse.text()
 
-      // updated_vehicle_options.csv 데이터 (가격 정보)
-      const optionsResponse = await fetch('/updated_vehicle_options.csv')
+      // public/vehicle-data/updated_vehicle_options.csv 데이터 (가격 정보)
+      const optionsResponse = await fetch('/vehicle-data/updated_vehicle_options.csv')
       const optionsText = await optionsResponse.text()
 
       // CSV 파싱
