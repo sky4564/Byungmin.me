@@ -1,6 +1,6 @@
 'use client'
 
-import { Code2, Briefcase, User, Mail, Github, ExternalLink, ArrowRight, Lock, Eye, EyeOff } from 'lucide-react'
+import { Code2, Briefcase, User, Mail, ExternalLink, ArrowRight, Lock, Eye, EyeOff } from 'lucide-react'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 
@@ -213,7 +213,7 @@ export default function PortfolioHome() {
               <span>이메일</span>
             </a>
             <a href="https://github.com/sky4564" target="_blank" rel="noopener noreferrer" className="flex items-center px-6 py-3 space-x-2 text-gray-700 bg-gray-100 rounded-lg transition-colors hover:bg-gray-200">
-              <Github className="w-5 h-5" />
+              <ExternalLink className="w-5 h-5" />
               <span>GitHub</span>
             </a>
           </div>
