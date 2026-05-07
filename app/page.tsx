@@ -42,54 +42,67 @@ export default function PortfolioHome() {
             {/* Charentcar Project - 메인 프로젝트로 강조 */}
             <Link
               href="/charentcar"
-              className="group block md:col-span-2 lg:col-span-2"
+              className="group block"
             >
-              <div className="p-8 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl border-2 border-green-200 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-green-300 hover:scale-105">
-                <div className="flex justify-between items-start mb-6">
-                  <div className="flex justify-center items-center w-16 h-16 bg-green-500 rounded-2xl">
-                    <Briefcase className="w-8 h-8 text-white" />
+              <div className="h-full min-h-[320px] p-6 bg-gradient-to-br from-green-50 to-emerald-100 rounded-2xl border-2 border-green-200 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-green-300 hover:scale-105 flex flex-col">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex justify-center items-center w-12 h-12 bg-green-500 rounded-xl">
+                    <Briefcase className="w-6 h-6 text-white" />
                   </div>
-                  <ExternalLink className="w-6 h-6 text-green-600 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  <ExternalLink className="w-5 h-5 text-green-600 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
                 </div>
 
-                <h3 className="mb-4 text-2xl font-bold text-gray-900">차렌터카 정보 시스템 (CIS)</h3>
-                <p className="mb-6 text-gray-600 leading-relaxed">
+                <h3 className="mb-3 text-lg font-bold text-gray-900">차렌터카 정보 시스템 (CIS)</h3>
+                <p className="mb-4 text-sm text-gray-600 leading-relaxed">
                   렌터카 업무의 모든 과정을 디지털화한 통합 관리 시스템입니다.
                   견적 계산, 예약 관리, 차량 조회, 은행 API 연동 등 실무에 필요한
                   모든 기능을 하나의 플랫폼에서 제공합니다.
                 </p>
 
-                <div className="flex justify-between items-end">
+                <div className="flex justify-between items-end mt-auto">
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 text-xs font-medium text-green-700 bg-green-200 rounded-full">Next.js</span>
-                    <span className="px-3 py-1 text-xs font-medium text-green-700 bg-green-200 rounded-full">TypeScript</span>
-                    <span className="px-3 py-1 text-xs font-medium text-green-700 bg-green-200 rounded-full">Tailwind</span>
+                    <span className="px-2 py-1 text-xs font-medium text-green-700 bg-green-200 rounded-full">Next.js</span>
+                    <span className="px-2 py-1 text-xs font-medium text-green-700 bg-green-200 rounded-full">TypeScript</span>
+                    <span className="px-2 py-1 text-xs font-medium text-green-700 bg-green-200 rounded-full">Tailwind</span>
                   </div>
-                  <div className="flex items-center text-green-600 font-semibold group-hover:translate-x-2 transition-transform">
+                  <div className="flex items-center text-sm text-green-600 font-semibold group-hover:translate-x-1 transition-transform">
                     <span>프로젝트 보기</span>
-                    <ArrowRight className="ml-2 w-4 h-4" />
+                    <ArrowRight className="ml-1 w-4 h-4" />
                   </div>
                 </div>
               </div>
             </Link>
 
             {/* 다른 프로젝트들 - 준비중 */}
-            <div className="p-6 bg-white rounded-2xl border border-gray-200 shadow-sm">
-              <div className="flex justify-center items-center mb-4 w-12 h-12 bg-gray-100 rounded-lg">
-                <Code2 className="w-6 h-6 text-gray-400" />
+            <Link href="/projects/airportrent24" className="group block">
+              <div className="h-full min-h-[320px] p-6 bg-gradient-to-br from-sky-50 to-blue-100 rounded-2xl border-2 border-sky-200 shadow-lg transition-all duration-300 hover:shadow-2xl hover:border-sky-300 hover:scale-105 flex flex-col">
+                <div className="flex justify-between items-start mb-4">
+                  <div className="flex justify-center items-center w-12 h-12 bg-sky-500 rounded-xl">
+                    <Code2 className="w-6 h-6 text-white" />
+                  </div>
+                  <ExternalLink className="w-5 h-5 text-sky-600 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                </div>
+                <h3 className="mb-3 text-lg font-bold text-gray-900">공항렌트24 웹페이지</h3>
+                <p className="mb-4 text-sm text-gray-600">24시간 인천공항 픽업 중심의 렌터카 서비스 소개 페이지입니다.</p>
+                <div className="flex flex-wrap gap-2 mt-auto mb-4">
+                  <span className="px-2 py-1 text-xs font-medium text-sky-700 bg-sky-200 rounded-full">HTML</span>
+                  <span className="px-2 py-1 text-xs font-medium text-sky-700 bg-sky-200 rounded-full">CSS</span>
+                  <span className="px-2 py-1 text-xs font-medium text-sky-700 bg-sky-200 rounded-full">JavaScript</span>
+                </div>
+                <div className="flex items-center text-sm font-semibold text-sky-600 group-hover:translate-x-1 transition-transform">
+                  <span>프로젝트 보기</span>
+                  <ArrowRight className="ml-1 w-4 h-4" />
+                </div>
               </div>
-              <h3 className="mb-3 text-lg font-bold text-gray-900">프로젝트 #2</h3>
-              <p className="mb-4 text-sm text-gray-600">다음 프로젝트를 준비중입니다...</p>
-              <span className="px-3 py-1 text-xs text-gray-500 bg-gray-100 rounded-full">준비중</span>
-            </div>
+            </Link>
 
-            <div className="p-6 bg-white rounded-2xl border border-gray-200 shadow-sm">
+            <div className="h-full min-h-[320px] p-6 bg-white rounded-2xl border border-gray-200 shadow-sm flex flex-col">
               <div className="flex justify-center items-center mb-4 w-12 h-12 bg-gray-100 rounded-lg">
                 <Code2 className="w-6 h-6 text-gray-400" />
               </div>
               <h3 className="mb-3 text-lg font-bold text-gray-900">프로젝트 #3</h3>
               <p className="mb-4 text-sm text-gray-600">다음 프로젝트를 준비중입니다...</p>
-              <span className="px-3 py-1 text-xs text-gray-500 bg-gray-100 rounded-full">준비중</span>
+              <span className="px-3 py-1 mt-auto text-xs text-gray-500 bg-gray-100 rounded-full w-fit">준비중</span>
             </div>
 
           </div>
@@ -101,9 +114,14 @@ export default function PortfolioHome() {
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="mb-8 text-3xl font-bold text-gray-900">연락하기</h2>
           <div className="flex justify-center space-x-6">
-            <a href="mailto:your.email@example.com" className="flex items-center px-6 py-3 space-x-2 text-blue-600 bg-blue-50 rounded-lg transition-colors hover:bg-blue-100">
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=qw486512@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center px-6 py-3 space-x-2 text-blue-600 bg-blue-50 rounded-lg transition-colors hover:bg-blue-100"
+            >
               <Mail className="w-5 h-5" />
-              <span>이메일</span>
+              <span>qw486512@gmail.com</span>
             </a>
             <a href="https://github.com/sky4564" target="_blank" rel="noopener noreferrer" className="flex items-center px-6 py-3 space-x-2 text-gray-700 bg-gray-100 rounded-lg transition-colors hover:bg-gray-200">
               <ExternalLink className="w-5 h-5" />
