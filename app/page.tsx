@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
+import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react'
 import { Code2, Briefcase, Mail, ExternalLink, ArrowRight, MessageCircle, Sun, Moon } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -33,11 +33,13 @@ const uiText = {
       projects: '프로젝트 보기',
       profileTitle: '시스템 프로필',
       profileDesc: '현재 프로젝트 중심 기술 스택',
+      qualifiedTitle: '자격사항',
+      qualifiedItem: '정보처리기사',
     },
     projects: {
       title: '프로젝트',
-      hint: '좌우로 넘겨서 5개 프로젝트를 확인해보세요.',
-      details: '프로젝트 보기',
+      hint: '좌우로 넘겨서 프로젝트를 확인해보세요.',
+      details: '프로젝트 링크',
       comingSoon: '준비중',
     },
     experience: { title: '경험' },
@@ -57,11 +59,13 @@ const uiText = {
       projects: 'See Projects',
       profileTitle: 'SYSTEM PROFILE',
       profileDesc: 'Stack focus for current projects',
+      qualifiedTitle: 'QUALIFIED',
+      qualifiedItem: 'Engineer Information Processing',
     },
     projects: {
       title: 'Projects',
-      hint: 'Swipe horizontally to explore 5 projects.',
-      details: 'Project Details',
+      hint: 'Swipe horizontally to explore projects.',
+      details: 'Project Link',
       comingSoon: 'Coming Soon',
     },
     experience: { title: 'Experience' },
@@ -75,6 +79,38 @@ const uiText = {
 
 const projectCardsByLanguage: Record<Language, ProjectCard[]> = {
   ko: [
+    {
+      title: 'SK STOA',
+      description: '쇼핑몰 유지보수와 기능 개선, 운영 이슈 대응을 수행한 커머스 운영 프로젝트입니다.',
+      tags: ['Angular', 'JavaScript (ES6)'],
+      href: 'https://www.skstoa.com/index',
+      theme: 'from-cyan-950/60 to-zinc-900 border-cyan-700/50',
+    },
+    {
+      title: 'NS 홈쇼핑 커뮤니티 (모바일)',
+      description: '모바일 커뮤니티 페이지를 신규 구축하고 UI/UX 최적화를 진행한 프로젝트입니다.',
+      tags: ['Vue', 'JavaScript', 'SCSS'],
+      href: 'https://m.nsmall.com/store/atypical/home',
+      theme: 'from-indigo-950/60 to-zinc-900 border-indigo-700/50',
+    },
+    {
+      title: 'NHN_API COMMERCE',
+      description: '샵바이 API 기반으로 상품/주문 플로우를 연동해 신규 쇼핑몰을 구축한 프로젝트입니다.',
+      tags: ['Shopby API', 'JavaScript'],
+      theme: 'from-teal-950/60 to-zinc-900 border-teal-700/50',
+    },
+    {
+      title: '지니게임 신맞고 · 판다팡',
+      description: 'KT에서 BTV로의 마이그레이션과 이벤트 화면 운영 자동화를 수행한 게임 서비스 프로젝트입니다.',
+      tags: ['Vanilla JS', 'Canvas'],
+      theme: 'from-fuchsia-950/60 to-zinc-900 border-fuchsia-700/50',
+    },
+    {
+      title: '라이브 상담 RTC 프로젝트',
+      description: '실시간 음성/화상 기능이 포함된 라이브 상담 앱을 구축한 RTC 프로젝트입니다.',
+      tags: ['React', 'Agora SDK', 'RTC'],
+      theme: 'from-emerald-950/70 to-zinc-900 border-emerald-700/60',
+    },
     {
       title: '차렌터카 정보 시스템 (CIS)',
       description: '렌터카 견적, 예약, 차량 조회, 은행 API 연동까지 통합 관리하는 메인 프로젝트입니다.',
@@ -90,25 +126,46 @@ const projectCardsByLanguage: Record<Language, ProjectCard[]> = {
       theme: 'from-sky-950/60 to-zinc-900 border-sky-700/50',
     },
     {
-      title: '차량 운영 대시보드',
-      description: '차량 가동률, 회전율, 정비 이력을 시각화하는 운영 분석 대시보드 프로젝트입니다.',
-      tags: ['React', 'Charts', 'PostgreSQL'],
-      theme: 'from-violet-950/50 to-zinc-900 border-violet-700/50',
-    },
-    {
-      title: '요금 자동화 엔진',
-      description: '성수기/비성수기, 기간별 할인, 옵션 가격을 자동 반영하는 요금 계산 엔진입니다.',
-      tags: ['Node.js', 'Rules', 'API'],
-      theme: 'from-amber-950/50 to-zinc-900 border-amber-700/50',
-    },
-    {
-      title: '고객 전용 예약 포털',
-      description: '고객이 예약 조회, 변경, 문의를 직접 처리할 수 있는 셀프서비스 포털입니다.',
-      tags: ['Next.js', 'Auth', 'Portal'],
-      theme: 'from-zinc-900 to-black border-zinc-700',
+      title: '워드프레스 기반 모금·결제·보안 통합 프로젝트',
+      description:
+        'WooCommerce, Wordfence, Gravity Forms, Elementor를 활용해 모금 랜딩 구조부터 결제/검증/보안 운영 정책까지 1인으로 설계·개발·배포한 통합 프로젝트입니다.',
+      tags: ['WooCommerce', 'Wordfence', 'Gravity Forms', 'Elementor'],
+      theme: 'from-lime-950/60 to-zinc-900 border-lime-700/50',
     },
   ],
   en: [
+    {
+      title: 'SK STOA',
+      description: 'Commerce operations project focused on maintenance, feature enhancements, and live issue response.',
+      tags: ['Angular', 'JavaScript (ES6)'],
+      href: 'https://www.skstoa.com/index',
+      theme: 'from-cyan-950/60 to-zinc-900 border-cyan-700/50',
+    },
+    {
+      title: 'NS Home Shopping Community (Mobile)',
+      description: 'Built new mobile community pages and optimized the UI/UX experience.',
+      tags: ['Vue', 'JavaScript', 'SCSS'],
+      href: 'https://m.nsmall.com/store/atypical/home',
+      theme: 'from-indigo-950/60 to-zinc-900 border-indigo-700/50',
+    },
+    {
+      title: 'NHN_API COMMERCE',
+      description: 'Built a new storefront with Shopby API integration across product and order flows.',
+      tags: ['Shopby API', 'JavaScript'],
+      theme: 'from-teal-950/60 to-zinc-900 border-teal-700/50',
+    },
+    {
+      title: 'Genie Game Sin Matgo · Panda Pang',
+      description: 'Game service project covering KT → BTV migration and event operations automation.',
+      tags: ['Vanilla JS', 'Canvas'],
+      theme: 'from-fuchsia-950/60 to-zinc-900 border-fuchsia-700/50',
+    },
+    {
+      title: 'Live Consultation RTC Project',
+      description: 'Delivered a live consultation app with real-time voice and video capabilities.',
+      tags: ['React', 'Agora SDK', 'RTC'],
+      theme: 'from-emerald-950/70 to-zinc-900 border-emerald-700/60',
+    },
     {
       title: 'Charentcar Information System (CIS)',
       description: 'Core platform integrating quotes, reservations, vehicle lookup, and bank API workflows.',
@@ -124,22 +181,11 @@ const projectCardsByLanguage: Record<Language, ProjectCard[]> = {
       theme: 'from-sky-950/60 to-zinc-900 border-sky-700/50',
     },
     {
-      title: 'Vehicle Ops Dashboard',
-      description: 'Operational analytics dashboard for utilization, turn-rate, and maintenance history.',
-      tags: ['React', 'Charts', 'PostgreSQL'],
-      theme: 'from-violet-950/50 to-zinc-900 border-violet-700/50',
-    },
-    {
-      title: 'Pricing Automation Engine',
-      description: 'Rule-based pricing engine covering seasonality, duration discounts, and options.',
-      tags: ['Node.js', 'Rules', 'API'],
-      theme: 'from-amber-950/50 to-zinc-900 border-amber-700/50',
-    },
-    {
-      title: 'Customer Reservation Portal',
-      description: 'Self-service portal for reservation checks, updates, and support requests.',
-      tags: ['Next.js', 'Auth', 'Portal'],
-      theme: 'from-zinc-900 to-black border-zinc-700',
+      title: 'WordPress-Based Donation, Payment, and Security Integration Project',
+      description:
+        'Single-handedly planned, built, and deployed an integrated donation platform using WooCommerce, Wordfence, Gravity Forms, and Elementor, covering campaign landing structure, checkout validation, and production security operations.',
+      tags: ['WooCommerce', 'Wordfence', 'Gravity Forms', 'Elementor'],
+      theme: 'from-lime-950/60 to-zinc-900 border-lime-700/50',
     },
   ],
 }
@@ -147,31 +193,35 @@ const projectCardsByLanguage: Record<Language, ProjectCard[]> = {
 const experienceByLanguage = {
   ko: [
     { title: '42서울 라피신 수료', period: '초기 경험', detail: '집중 몰입형 코딩 부트캠프(La Piscine) 과정을 수료하며 C 기반 문제 해결, 협업, 코드 리뷰 문화의 기초를 체득했습니다.' },
-    { title: '쿠팡 해커톤 참가', period: '24-hour Agile Sprint', detail: '애자일 스크럼 기반 협업(Agile Scrum-based Collaboration)으로 아이디어 기획부터 프로토타입 구현·발표까지 24시간 내 완료.' },
-    { title: '정보처리기사', period: '자격증', detail: '국가기술자격 정보처리기사 취득 (소프트웨어 설계, 개발, 데이터베이스, 운영 역량 검증).' },
-    { title: '소프트빌더 사업자 운영 (프리랜서)', period: '2023 - Present', detail: '소프트빌더를 운영하며 외주 프로젝트를 수행하고, 고객 요구사항에 맞춘 웹/업무 시스템을 프리랜서로 개발·납품하고 있습니다.' },
-    { title: 'Automation Projects', period: '2022 - Present', detail: '자동화로 반복 수작업을 줄이고 업무 속도를 개선했습니다.' },
-    { title: 'Cloud & Infra', period: '2021 - Present', detail: '배포, 모니터링, 인프라 안정성 운영을 담당했습니다.' },
-    { title: 'Data-driven Features', period: 'Ongoing', detail: '지표 기반 개선으로 제품 의사결정을 고도화했습니다.' },
+    {
+      title: '한국소프트웨어산업협회 SW개발자 양성과정 수료 및 팀 프로젝트 최우수상',
+      period: '교육/수상',
+      detail: '한국소프트웨어산업협회(KOSA) SW개발자 양성과정을 수료하고 팀 프로젝트 최우수상을 수상했습니다. (sw.or.kr 교육과정)',
+    },
+    { title: '지니프릭스 재직', period: '2021/12/27 - 2024/05', detail: '지니프릭스에서 프론트엔드 개발자로 근무하며 실무 프로젝트 기반의 웹 서비스 개발/운영 경험을 쌓았습니다.' },
+    { title: '풀스택 전환 준비 기간', period: '2024/06 - 2025/03', detail: '프론트엔드에서 풀스택으로 역할 확장을 목표로 정보처리기사 취득과 쿠팡 해커톤(애자일 스크럼 기반 24시간 협업) 참여를 통해 실전형 전환 역량을 강화했습니다.' },
+    { title: '차렌터카 풀스택 개발 총괄', period: '2025/04 - 2025/10', detail: '차렌터카 서비스에서 도메인 준비부터 개발 환경설정, 예약/운영 기능 구현까지 풀스택 개발 전반을 총괄했습니다.' },
+    { title: '소프트빌더 사업자 운영 (프리랜서)', period: '2025/11 - Present', detail: '소프트빌더를 운영하며 외주 프로젝트를 수행하고, 고객 요구사항에 맞춘 웹/업무 시스템을 프리랜서로 개발·납품하고 있습니다.' },
   ],
   en: [
     { title: 'Completed 42 Seoul La Piscine', period: 'Early Experience', detail: 'Completed the immersive La Piscine program, strengthening fundamentals in C-based problem solving, peer collaboration, and code-review culture.' },
-    { title: 'Coupang Hackathon Participant', period: '24-hour Agile Sprint', detail: 'Executed ideation, prototyping, and presentation within 24 hours through Agile Scrum-based Collaboration.' },
-    { title: 'Engineer Information Processing', period: 'Certification', detail: 'Korean national technical certification validating software design, development, database, and operations capability.' },
-    { title: 'SoftBuilder Owner (Freelancer)', period: '2023 - Present', detail: 'Operating SoftBuilder while delivering outsourced projects as a freelancer, building and shipping custom web and business systems for clients.' },
-    { title: 'Automation Projects', period: '2022 - Present', detail: 'Reduced manual work with scripts and workflow optimization.' },
-    { title: 'Cloud & Infra', period: '2021 - Present', detail: 'Managed deployment, monitoring, and system reliability.' },
-    { title: 'Data-driven Features', period: 'Ongoing', detail: 'Improved product decisions through measurable indicators.' },
+    {
+      title: 'Completed KOSA SW Developer Training, Team Project Grand Prize',
+      period: 'Education / Award',
+      detail: 'Completed the KOSA (Korea Software Industry Association) SW developer training program and received the top award in the team project.',
+    },
+    { title: 'Geniefreaks (Frontend Developer)', period: '2021/12/27 - 2024/05', detail: 'Worked as a frontend developer at Geniefreaks, building and operating production web services.' },
+    { title: 'Full-Stack Transition Phase', period: '2024/06 - 2025/03', detail: 'Focused on expanding from frontend into full-stack responsibilities by earning the Engineer Information Processing certification and joining the Coupang hackathon for hands-on 24-hour Agile Scrum collaboration.' },
+    { title: 'Charentcar Full-Stack Lead', period: '2025/04 - 2025/10', detail: 'Led end-to-end full-stack development at Charentcar, from domain setup and environment configuration to reservation/operations feature delivery.' },
+    { title: 'SoftBuilder Owner (Freelancer)', period: '2025/11 - Present', detail: 'Operating SoftBuilder while delivering outsourced projects as a freelancer, building and shipping custom web and business systems for clients.' },
   ],
 } as const
 
 export default function PortfolioHome() {
-  const projectsRef = useRef<HTMLDivElement>(null)
   const experienceSectionRef = useRef<HTMLElement>(null)
   const timelineRef = useRef<HTMLDivElement>(null)
   const experienceItemRefs = useRef<(HTMLElement | null)[]>([])
   const experienceDotRefs = useRef<(HTMLDivElement | null)[]>([])
-  const [activeProjectIndex, setActiveProjectIndex] = useState(0)
   const [activeExperienceIndex, setActiveExperienceIndex] = useState<number | null>(null)
   const [laserPosition, setLaserPosition] = useState(0)
   const [language, setLanguage] = useState<Language>('en')
@@ -180,6 +230,49 @@ export default function PortfolioHome() {
   const t = uiText[language]
   const projectCards = useMemo(() => projectCardsByLanguage[language], [language])
   const experienceItems = useMemo(() => experienceByLanguage[language], [language])
+  const stackSkills = [
+    { name: 'Angular', tone: 'frontend' },
+    { name: 'Next.js', tone: 'frontend' },
+    { name: 'React', tone: 'frontend' },
+    { name: 'Vue', tone: 'frontend' },
+    { name: 'TypeScript', tone: 'language' },
+    { name: 'JavaScript (ES6)', tone: 'language' },
+    { name: 'Node.js', tone: 'backend' },
+    { name: 'WordPress', tone: 'backend' },
+    { name: 'PHP', tone: 'backend' },
+    { name: 'MySQL', tone: 'database' },
+    { name: 'Docker', tone: 'devops' },
+    { name: 'Nginx', tone: 'devops' },
+    { name: 'Jenkins', tone: 'devops' },
+    { name: 'Vercel', tone: 'devops' },
+    { name: 'Cloudflare', tone: 'devops' },
+    { name: 'Notion', tone: 'collab' },
+    { name: 'Slack', tone: 'collab' },
+    { name: 'Jira', tone: 'collab' },
+    { name: 'Confluence', tone: 'collab' },
+    { name: 'Bitbucket', tone: 'collab' },
+    { name: 'Figma', tone: 'tool' },
+  ] as const
+  const skillToneClass = {
+    dark: {
+      frontend: 'text-sky-200 bg-sky-500/15 border-sky-400/40',
+      language: 'text-violet-200 bg-violet-500/15 border-violet-400/40',
+      backend: 'text-emerald-200 bg-emerald-500/15 border-emerald-400/40',
+      database: 'text-amber-200 bg-amber-500/15 border-amber-400/40',
+      devops: 'text-cyan-200 bg-cyan-500/15 border-cyan-400/40',
+      collab: 'text-rose-200 bg-rose-500/15 border-rose-400/40',
+      tool: 'text-zinc-200 bg-zinc-700/40 border-zinc-500/50',
+    },
+    light: {
+      frontend: 'text-sky-800 bg-sky-100 border-sky-300',
+      language: 'text-violet-800 bg-violet-100 border-violet-300',
+      backend: 'text-emerald-800 bg-emerald-100 border-emerald-300',
+      database: 'text-amber-800 bg-amber-100 border-amber-300',
+      devops: 'text-cyan-800 bg-cyan-100 border-cyan-300',
+      collab: 'text-rose-800 bg-rose-100 border-rose-300',
+      tool: 'text-zinc-800 bg-zinc-100 border-zinc-300',
+    },
+  } as const
 
   useEffect(() => {
     if (!window.ChannelIOInitialized) {
@@ -224,35 +317,7 @@ export default function PortfolioHome() {
     window.open('https://channeltalk.kr/s/ch/20ba72a5-991f-47c1-b41a-32b0fed6316c', '_blank', 'noopener,noreferrer')
   }
 
-  const scrollProjects = (direction: 'left' | 'right') => {
-    if (!projectsRef.current) return
-    const amount = direction === 'left' ? -380 : 380
-    projectsRef.current.scrollBy({ left: amount, behavior: 'smooth' })
-  }
-
   const toggleBackgroundTheme = () => setBackgroundTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
-
-  const updateActiveProjectIndex = useCallback(() => {
-    if (!projectsRef.current) return
-
-    const container = projectsRef.current
-    const firstCard = container.children.item(0) as HTMLElement | null
-    if (!firstCard) return
-
-    const computedStyle = window.getComputedStyle(container)
-    const gap = Number.parseFloat(computedStyle.gap || computedStyle.columnGap || '24') || 24
-    const stride = firstCard.offsetWidth + gap
-    const centerX = container.scrollLeft + container.clientWidth / 2
-    const rawIndex = Math.round((centerX - firstCard.offsetWidth / 2) / stride)
-    const safeIndex = Math.max(0, Math.min(projectCards.length - 1, rawIndex))
-    setActiveProjectIndex(safeIndex)
-  }, [projectCards.length])
-
-  useEffect(() => {
-    updateActiveProjectIndex()
-    window.addEventListener('resize', updateActiveProjectIndex)
-    return () => window.removeEventListener('resize', updateActiveProjectIndex)
-  }, [updateActiveProjectIndex])
 
   useEffect(() => {
     const syncExperienceLaser = () => {
@@ -387,14 +452,13 @@ export default function PortfolioHome() {
             </div>
 
             <div className="space-y-5">
-              <div className={`overflow-hidden relative rounded-2xl border ${isDark ? 'bg-zinc-900/70 border-emerald-800/60' : 'bg-white/90 border-emerald-300'}`}>
+              <div className={`overflow-hidden relative rounded-2xl border ${isDark ? 'bg-zinc-900/70 border-emerald-800/60' : 'border-emerald-300 bg-white/90'}`}>
                 <div className="relative h-[320px] w-full">
                   <div
-                    className={`absolute inset-0 ${
-                      isDark
-                        ? 'bg-[radial-gradient(circle_at_20%_15%,rgba(16,185,129,0.35),transparent_45%),radial-gradient(circle_at_80%_20%,rgba(34,197,94,0.25),transparent_40%),linear-gradient(180deg,#052e16_0%,#064e3b_55%,#022c22_100%)]'
-                        : 'bg-[radial-gradient(circle_at_20%_15%,rgba(16,185,129,0.22),transparent_45%),radial-gradient(circle_at_80%_20%,rgba(34,197,94,0.18),transparent_40%),linear-gradient(180deg,#dcfce7_0%,#bbf7d0_55%,#86efac_100%)]'
-                    }`}
+                    className={`absolute inset-0 ${isDark
+                      ? 'bg-[radial-gradient(circle_at_20%_15%,rgba(16,185,129,0.35),transparent_45%),radial-gradient(circle_at_80%_20%,rgba(34,197,94,0.25),transparent_40%),linear-gradient(180deg,#052e16_0%,#064e3b_55%,#022c22_100%)]'
+                      : 'bg-[radial-gradient(circle_at_20%_15%,rgba(16,185,129,0.22),transparent_45%),radial-gradient(circle_at_80%_20%,rgba(34,197,94,0.18),transparent_40%),linear-gradient(180deg,#dcfce7_0%,#bbf7d0_55%,#86efac_100%)]'
+                      }`}
                   />
                   <Image
                     src="/images/배경.png"
@@ -404,7 +468,7 @@ export default function PortfolioHome() {
                     className="object-cover object-center"
                     priority
                   />
-                  <div className="absolute inset-0 flex justify-center items-center">
+                  <div className="flex absolute inset-0 justify-center items-center">
                     <div className={`relative overflow-hidden w-52 aspect-[413/600] rounded-xl border-2 shadow-2xl ${isDark ? 'border-zinc-300/70 bg-zinc-900/40' : 'border-white/90 bg-white/30'}`}>
                       <Image
                         src="/images/증명사진.jpeg"
@@ -415,7 +479,7 @@ export default function PortfolioHome() {
                       />
                     </div>
                   </div>
-                  <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-t from-black/70 via-black/20 to-transparent' : 'bg-gradient-to-t from-black/45 via-black/10 to-transparent'}`} />
+                  <div className={`absolute inset-0 ${isDark ? 'bg-gradient-to-t to-transparent from-black/70 via-black/20' : 'bg-gradient-to-t to-transparent from-black/45 via-black/10'}`} />
                   <div className="absolute right-4 bottom-4 left-4">
                     <p className="font-mono text-xs tracking-wider text-emerald-300">STATUS: AVAILABLE FOR PROJECTS</p>
                     <h2 className="mt-1 text-xl font-bold text-white">Byungmin</h2>
@@ -425,17 +489,29 @@ export default function PortfolioHome() {
 
               <div className={`p-6 rounded-2xl border ${isDark ? 'bg-zinc-900/70 border-zinc-800' : 'bg-white/90 border-zinc-300'}`}>
                 <div className="flex items-center mb-4">
-                  <Code2 className="w-6 h-6 mr-2 text-emerald-400" />
+                  <Code2 className="mr-2 w-6 h-6 text-emerald-400" />
                   <h2 className={`text-sm font-semibold tracking-wide ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>{t.hero.profileTitle}</h2>
                 </div>
                 <p className={`mb-4 text-sm ${isDark ? 'text-zinc-400' : 'text-zinc-700'}`}>{t.hero.profileDesc}</p>
                 <div className="flex flex-wrap gap-2">
-                  {['Next.js', 'React', 'TypeScript', 'Node.js', 'Automation', 'Cloud'].map((skill) => (
-                    <span key={skill} className={`px-3 py-1 text-xs font-medium rounded-full border ${isDark ? 'text-zinc-200 bg-zinc-800 border-zinc-700' : 'text-zinc-800 bg-zinc-100 border-zinc-400'}`}>
-                      {skill}
+                  {stackSkills.map((skill) => (
+                    <span
+                      key={skill.name}
+                      className={`px-3 py-1 text-xs font-medium rounded-full border ${
+                        isDark ? skillToneClass.dark[skill.tone] : skillToneClass.light[skill.tone]
+                      }`}
+                    >
+                      {skill.name}
                     </span>
                   ))}
                 </div>
+              </div>
+
+              <div className={`p-5 rounded-2xl border ${isDark ? 'bg-zinc-900/70 border-zinc-800' : 'bg-white/90 border-zinc-300'}`}>
+                <h3 className={`mb-3 text-sm font-semibold tracking-wide ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`}>{t.hero.qualifiedTitle}</h3>
+                <span className={`inline-flex items-center px-3 py-1 text-xs font-medium rounded-full border ${isDark ? 'text-zinc-200 bg-zinc-800 border-zinc-700' : 'text-zinc-800 bg-zinc-100 border-zinc-400'}`}>
+                  {t.hero.qualifiedItem}
+                </span>
               </div>
             </div>
           </div>
@@ -451,8 +527,8 @@ export default function PortfolioHome() {
             </a>
             <button
               type="button"
-              onClick={() => scrollProjects('right')}
-              className={`px-5 py-3 font-semibold rounded-xl border ${isDark ? 'border-zinc-700 bg-zinc-900 hover:bg-zinc-800' : 'border-zinc-400 bg-white hover:bg-zinc-100'}`}
+              onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+              className={`px-5 py-3 font-semibold rounded-xl border ${isDark ? 'border-zinc-700 bg-zinc-900 hover:bg-zinc-800' : 'bg-white border-zinc-400 hover:bg-zinc-100'}`}
             >
               {t.hero.projects}
             </button>
@@ -462,103 +538,75 @@ export default function PortfolioHome() {
 
       <section id="projects" className="container px-4 py-24 mx-auto scroll-mt-24 md:py-28">
         <div className="mx-auto max-w-6xl">
-          <div className="flex justify-between items-center mb-4">
+          <div className="mb-4">
             <h2 className="text-3xl font-bold md:text-4xl">{t.projects.title}</h2>
-            <div className="hidden gap-2 md:flex">
-              <button
-                type="button"
-                onClick={() => scrollProjects('left')}
-                className={`px-3 py-2 text-sm rounded-lg border ${isDark ? 'text-zinc-300 bg-zinc-900 border-zinc-700 hover:bg-zinc-800' : 'text-zinc-800 bg-white border-zinc-400 hover:bg-zinc-100'}`}
-              >
-                ←
-              </button>
-              <button
-                type="button"
-                onClick={() => scrollProjects('right')}
-                className={`px-3 py-2 text-sm rounded-lg border ${isDark ? 'text-zinc-300 bg-zinc-900 border-zinc-700 hover:bg-zinc-800' : 'text-zinc-800 bg-white border-zinc-400 hover:bg-zinc-100'}`}
-              >
-                →
-              </button>
-            </div>
           </div>
           <p className={`mb-6 text-sm ${isDark ? 'text-zinc-400' : 'text-zinc-700'}`}>{t.projects.hint}</p>
 
-          <div className="relative [perspective:1600px]">
-            <div className={`pointer-events-none absolute top-0 left-0 z-10 w-10 h-full bg-gradient-to-r ${isDark ? 'from-zinc-950 via-zinc-950/80' : 'from-slate-50 via-slate-50/80'} to-transparent`} />
-            <div className={`pointer-events-none absolute top-0 right-0 z-10 w-10 h-full bg-gradient-to-l ${isDark ? 'from-zinc-950 via-zinc-950/80' : 'from-indigo-50 via-indigo-50/80'} to-transparent`} />
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3 [perspective:1400px]">
+            {projectCards.map((project, index) => {
+              const tileOffset = index % 3 === 1 ? 'md:translate-y-3' : index % 3 === 2 ? 'md:-translate-y-1' : ''
 
-            <div
-              ref={projectsRef}
-              onScroll={updateActiveProjectIndex}
-              className="flex gap-6 px-1 pb-4 overflow-x-auto scroll-smooth snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-            >
-              {projectCards.map((project, index) => {
-                const distanceFromActive = index - activeProjectIndex
-                const absDistance = Math.abs(distanceFromActive)
-                const rotateY = distanceFromActive === 0 ? 0 : distanceFromActive > 0 ? -12 : 12
-                const translateZ = absDistance === 0 ? 36 : absDistance === 1 ? 6 : -24
-                const scale = absDistance === 0 ? 1 : absDistance === 1 ? 0.94 : 0.88
-                const opacity = absDistance > 2 ? 0.55 : absDistance === 2 ? 0.72 : absDistance === 1 ? 0.88 : 1
-
-                const card = (
+              const card = (
+                <div className="relative w-full aspect-[6/4] max-w-[360px] [transform-style:preserve-3d] transition-transform duration-500 group-hover:[transform:rotateY(180deg)]">
                   <article
-                    className={`h-full min-h-[320px] p-6 bg-gradient-to-br rounded-2xl border-2 shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 flex flex-col ${isDark ? project.theme : 'from-white to-zinc-100 border-zinc-300'}`}
+                    className={`absolute inset-0 [backface-visibility:hidden] rounded-2xl border-2 shadow-lg transition-all duration-300 bg-gradient-to-br p-4 flex flex-col items-center justify-center text-center ${isDark ? project.theme : 'from-white to-zinc-100 border-zinc-300'}`}
                   >
-                    <div className="flex justify-between items-start mb-4">
-                      <div className={`flex justify-center items-center w-12 h-12 rounded-xl ${isDark ? 'bg-black/25' : 'bg-zinc-200'}`}>
-                        {index === 0 ? <Briefcase className={`w-6 h-6 ${isDark ? 'text-zinc-100' : 'text-zinc-800'}`} /> : <Code2 className={`w-6 h-6 ${isDark ? 'text-zinc-100' : 'text-zinc-800'}`} />}
+                    <div>
+                      <div className={`mx-auto mb-2 flex h-9 w-9 items-center justify-center rounded-lg ${isDark ? 'bg-black/25' : 'bg-zinc-200'}`}>
+                        {index === 0 ? <Briefcase className={`w-4 h-4 ${isDark ? 'text-zinc-100' : 'text-zinc-800'}`} /> : <Code2 className={`w-4 h-4 ${isDark ? 'text-zinc-100' : 'text-zinc-800'}`} />}
                       </div>
-                      <ExternalLink className={`w-5 h-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1 ${isDark ? 'text-zinc-300' : 'text-zinc-700'}`} />
+                      <h3 className={`text-base font-bold leading-snug ${isDark ? 'text-zinc-100' : 'text-zinc-900'}`}>{project.title}</h3>
                     </div>
+                    <div className="flex flex-wrap gap-1.5 justify-center mt-3">
+                      {project.tags.slice(0, 3).map((tag) => (
+                        <span key={`${project.title}-front-${tag}`} className={`px-2 py-0.5 text-[10px] font-medium rounded-full border ${isDark ? 'text-zinc-200 bg-black/30 border-white/10' : 'text-zinc-800 bg-zinc-200 border-zinc-400'}`}>
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
 
-                    <h3 className={`mb-3 text-lg font-bold ${isDark ? 'text-zinc-100' : 'text-zinc-900'}`}>{project.title}</h3>
-                    <p className={`mb-4 text-sm ${isDark ? 'text-zinc-300' : 'text-zinc-800'}`}>{project.description}</p>
+                  <article
+                    className={`absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl border-2 shadow-lg transition-all duration-300 bg-gradient-to-br p-4 flex flex-col ${isDark ? project.theme : 'from-white to-zinc-100 border-zinc-300'}`}
+                  >
+                    <h3 className={`mb-2 text-sm font-semibold ${isDark ? 'text-zinc-100' : 'text-zinc-900'}`}>{project.title}</h3>
+                    <p className={`mb-3 text-xs leading-relaxed ${isDark ? 'text-zinc-300' : 'text-zinc-800'}`}>{project.description}</p>
 
-                    <div className="flex flex-wrap gap-2 mt-auto mb-4">
-                      {project.tags.map((tag) => (
-                        <span key={tag} className={`px-2 py-1 text-xs font-medium rounded-full border ${isDark ? 'text-zinc-200 bg-black/30 border-white/10' : 'text-zinc-800 bg-zinc-200 border-zinc-400'}`}>
+                    <div className="flex flex-wrap gap-1.5 mt-auto mb-3">
+                      {project.tags.slice(0, 4).map((tag) => (
+                        <span key={tag} className={`px-2 py-0.5 text-[10px] font-medium rounded-full border ${isDark ? 'text-zinc-200 bg-black/30 border-white/10' : 'text-zinc-800 bg-zinc-200 border-zinc-400'}`}>
                           {tag}
                         </span>
                       ))}
                     </div>
 
-                    <div className={`flex items-center text-sm font-semibold transition-transform group-hover:translate-x-1 ${isDark ? 'text-zinc-100' : 'text-zinc-800'}`}>
+                    <div className={`flex items-center text-xs font-semibold ${isDark ? 'text-zinc-100' : 'text-zinc-800'}`}>
                       <span>{project.href ? t.projects.details : t.projects.comingSoon}</span>
-                      <ArrowRight className="ml-1 w-4 h-4" />
+                      <ArrowRight className="ml-1 w-3.5 h-3.5" />
                     </div>
                   </article>
-                )
+                </div>
+              )
 
-                if (project.href) {
-                  return (
-                    <Link
-                      key={project.title}
-                      href={project.href}
-                      className="group snap-center shrink-0 w-[300px] md:w-[330px] lg:w-[360px] transition-all duration-500 [transform-style:preserve-3d]"
-                      style={{
-                        transform: `translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
-                        opacity,
-                      }}
-                    >
-                      {card}
-                    </Link>
-                  )
-                }
-
+              if (project.href) {
                 return (
-                  <div
+                  <Link
                     key={project.title}
-                    className="group snap-center shrink-0 w-[300px] md:w-[330px] lg:w-[360px] transition-all duration-500 [transform-style:preserve-3d]"
-                    style={{
-                      transform: `translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`,
-                      opacity,
-                    }}
+                    href={project.href}
+                    className={`block w-full max-w-[360px] transition-transform duration-300 group [transform-style:preserve-3d] justify-self-center ${tileOffset}`}
                   >
                     {card}
-                  </div>
+                  </Link>
                 )
-              })}
-            </div>
+              }
+
+              return (
+                <div key={project.title} className={`w-full max-w-[360px] transition-transform duration-300 group [transform-style:preserve-3d] justify-self-center ${tileOffset}`}>
+                  {card}
+                </div>
+              )
+            })}
           </div>
         </div>
       </section>
@@ -586,35 +634,32 @@ export default function PortfolioHome() {
                   ref={(el) => {
                     experienceItemRefs.current[index] = el
                   }}
-                  className={`relative z-20 w-[min(100%,20rem)] aspect-square p-6 rounded-2xl border transition-all duration-300 ${
-                    index % 2 === 0 ? 'col-start-1 justify-self-end' : 'col-start-3 justify-self-start'
-                  } ${
-                    index === activeExperienceIndex
+                  className={`relative z-20 w-[min(100%,20rem)] aspect-square p-6 rounded-2xl border transition-all duration-300 ${index % 2 === 0 ? 'col-start-1 justify-self-end' : 'col-start-3 justify-self-start'
+                    } ${index === activeExperienceIndex
                       ? isDark
                         ? 'bg-zinc-900/95 border-emerald-400/70 shadow-[0_0_26px_rgba(16,185,129,0.22)]'
                         : 'bg-white border-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.2)]'
                       : isDark
                         ? 'bg-zinc-900/70 border-zinc-800'
                         : 'bg-white/92 border-zinc-300'
-                  }`}
+                    }`}
                 >
                   <p className="mb-2 text-xs tracking-wider text-emerald-400 uppercase">{item.period}</p>
                   <h3 className="mb-2 text-xl font-semibold">{item.title}</h3>
                   <p className={`text-sm leading-relaxed ${isDark ? 'text-zinc-400' : 'text-zinc-700'}`}>{item.detail}</p>
                 </article>
 
-                <div className="col-start-2 row-start-1 flex justify-center">
+                <div className="flex col-start-2 row-start-1 justify-center">
                   <div
                     ref={(el) => {
                       experienceDotRefs.current[index] = el
                     }}
-                    className={`w-3 h-3 rounded-full ring-4 transition-all duration-300 ${
-                      index === activeExperienceIndex
-                        ? 'bg-emerald-400 scale-125 shadow-[0_0_14px_rgba(16,185,129,0.9)]'
-                        : isDark
-                          ? 'bg-zinc-600'
-                          : 'bg-zinc-400'
-                    } ${isDark ? 'ring-zinc-950' : 'ring-white'}`}
+                    className={`w-3 h-3 rounded-full ring-4 transition-all duration-300 ${index === activeExperienceIndex
+                      ? 'bg-emerald-400 scale-125 shadow-[0_0_14px_rgba(16,185,129,0.9)]'
+                      : isDark
+                        ? 'bg-zinc-600'
+                        : 'bg-zinc-400'
+                      } ${isDark ? 'ring-zinc-950' : 'ring-white'}`}
                   />
                 </div>
               </div>
