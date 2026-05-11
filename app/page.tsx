@@ -130,6 +130,7 @@ const projectCardsByLanguage: Record<Language, ProjectCard[]> = {
       description:
         'WooCommerce, Wordfence, Gravity Forms, Elementor를 활용해 모금 랜딩 구조부터 결제/검증/보안 운영 정책까지 1인으로 설계·개발·배포한 통합 프로젝트입니다. 로컬 Ubuntu VM에서 Nginx·PHP-FPM·MySQL로 WordPress를 구동하며 스택을 검증한 경험을 바탕으로 진행했습니다.',
       tags: ['WooCommerce', 'Wordfence', 'Gravity Forms', 'Elementor'],
+      href: 'https://www.donation.softbuilder.kr/',
       theme: 'from-lime-950/60 to-zinc-900 border-lime-700/50',
     },
   ],
@@ -186,6 +187,7 @@ const projectCardsByLanguage: Record<Language, ProjectCard[]> = {
         'Single-handedly planned, built, and deployed an integrated donation platform using WooCommerce, Wordfence, Gravity Forms, and Elementor, covering campaign landing structure, checkout validation, and production security operations. Validated the hosting stack on a local Ubuntu VM with Nginx, PHP-FPM, MySQL, and WordPress.',
       tags: ['WooCommerce', 'Wordfence', 'Gravity Forms', 'Elementor'],
       theme: 'from-lime-950/60 to-zinc-900 border-lime-700/50',
+      href: 'https://www.donation.softbuilder.kr/',
     },
   ],
 }
