@@ -121,14 +121,14 @@ const projectCardsByLanguage: Record<Language, ProjectCard[]> = {
     {
       title: '공항렌트24 웹페이지',
       description: '24시간 인천공항 픽업 중심의 렌터카 서비스 소개 랜딩 페이지입니다.',
-      tags: ['HTML', 'CSS', 'JavaScript'],
+      tags: ['React', 'TypeScript', 'Tailwind'],
       href: '/projects/airportrent24',
       theme: 'from-sky-950/60 to-zinc-900 border-sky-700/50',
     },
     {
       title: '워드프레스 기반 모금·결제·보안 통합 프로젝트',
       description:
-        'WooCommerce, Wordfence, Gravity Forms, Elementor를 활용해 모금 랜딩 구조부터 결제/검증/보안 운영 정책까지 1인으로 설계·개발·배포한 통합 프로젝트입니다.',
+        'WooCommerce, Wordfence, Gravity Forms, Elementor를 활용해 모금 랜딩 구조부터 결제/검증/보안 운영 정책까지 1인으로 설계·개발·배포한 통합 프로젝트입니다. 로컬 Ubuntu VM에서 Nginx·PHP-FPM·MySQL로 WordPress를 구동하며 스택을 검증한 경험을 바탕으로 진행했습니다.',
       tags: ['WooCommerce', 'Wordfence', 'Gravity Forms', 'Elementor'],
       theme: 'from-lime-950/60 to-zinc-900 border-lime-700/50',
     },
@@ -183,7 +183,7 @@ const projectCardsByLanguage: Record<Language, ProjectCard[]> = {
     {
       title: 'WordPress-Based Donation, Payment, and Security Integration Project',
       description:
-        'Single-handedly planned, built, and deployed an integrated donation platform using WooCommerce, Wordfence, Gravity Forms, and Elementor, covering campaign landing structure, checkout validation, and production security operations.',
+        'Single-handedly planned, built, and deployed an integrated donation platform using WooCommerce, Wordfence, Gravity Forms, and Elementor, covering campaign landing structure, checkout validation, and production security operations. Validated the hosting stack on a local Ubuntu VM with Nginx, PHP-FPM, MySQL, and WordPress.',
       tags: ['WooCommerce', 'Wordfence', 'Gravity Forms', 'Elementor'],
       theme: 'from-lime-950/60 to-zinc-900 border-lime-700/50',
     },
@@ -240,6 +240,7 @@ export default function PortfolioHome() {
     { name: 'Node.js', tone: 'backend' },
     { name: 'WordPress', tone: 'backend' },
     { name: 'PHP', tone: 'backend' },
+    { name: 'PHP-FPM', tone: 'backend' },
     { name: 'MySQL', tone: 'database' },
     { name: 'Docker', tone: 'devops' },
     { name: 'Nginx', tone: 'devops' },
@@ -497,9 +498,8 @@ export default function PortfolioHome() {
                   {stackSkills.map((skill) => (
                     <span
                       key={skill.name}
-                      className={`px-3 py-1 text-xs font-medium rounded-full border ${
-                        isDark ? skillToneClass.dark[skill.tone] : skillToneClass.light[skill.tone]
-                      }`}
+                      className={`px-3 py-1 text-xs font-medium rounded-full border ${isDark ? skillToneClass.dark[skill.tone] : skillToneClass.light[skill.tone]
+                        }`}
                     >
                       {skill.name}
                     </span>
@@ -594,7 +594,7 @@ export default function PortfolioHome() {
                   <Link
                     key={project.title}
                     href={project.href}
-                    className={`block w-full max-w-[360px] transition-transform duration-300 group [transform-style:preserve-3d] justify-self-center ${tileOffset}`}
+                    className={`block justify-self-center w-full transition-transform duration-300 max-w-[360px] group [transform-style:preserve-3d] ${tileOffset}`}
                   >
                     {card}
                   </Link>
@@ -602,7 +602,7 @@ export default function PortfolioHome() {
               }
 
               return (
-                <div key={project.title} className={`w-full max-w-[360px] transition-transform duration-300 group [transform-style:preserve-3d] justify-self-center ${tileOffset}`}>
+                <div key={project.title} className={`justify-self-center w-full transition-transform duration-300 max-w-[360px] group [transform-style:preserve-3d] ${tileOffset}`}>
                   {card}
                 </div>
               )
