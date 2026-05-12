@@ -42,7 +42,7 @@ const uiText = {
       details: '프로젝트 링크',
       comingSoon: '준비중',
     },
-    experience: { title: '경험' },
+    experience: { title: '경험', visitSoftBuilder: '소프트빌더 공식 사이트' },
     contact: {
       title: '연락하기',
       description: '협업, 프리랜스, 제품 컨설팅 관련 문의를 환영합니다.',
@@ -68,7 +68,7 @@ const uiText = {
       details: 'Project Link',
       comingSoon: 'Coming Soon',
     },
-    experience: { title: 'Experience' },
+    experience: { title: 'Experience', visitSoftBuilder: 'Official SoftBuilder site' },
     contact: {
       title: 'Contact',
       description: 'Open for collaboration, freelance work, and product consulting.',
@@ -76,6 +76,13 @@ const uiText = {
     },
   },
 } as const
+
+type ExperienceItem = {
+  title: string
+  period: string
+  detail: string
+  href?: string
+}
 
 const projectCardsByLanguage: Record<Language, ProjectCard[]> = {
   ko: [
@@ -192,7 +199,7 @@ const projectCardsByLanguage: Record<Language, ProjectCard[]> = {
   ],
 }
 
-const experienceByLanguage = {
+const experienceByLanguage: Record<Language, ExperienceItem[]> = {
   ko: [
     { title: '42서울 라피신 수료', period: '초기 경험', detail: '집중 몰입형 코딩 부트캠프(La Piscine) 과정을 수료하며 C 기반 문제 해결, 협업, 코드 리뷰 문화의 기초를 체득했습니다.' },
     {
@@ -203,7 +210,12 @@ const experienceByLanguage = {
     { title: '지니프릭스 재직', period: '2021/12/27 - 2024/05', detail: '지니프릭스에서 프론트엔드 개발자로 근무하며 실무 프로젝트 기반의 웹 서비스 개발/운영 경험을 쌓았습니다.' },
     { title: '풀스택 전환 준비 기간', period: '2024/06 - 2025/03', detail: '프론트엔드에서 풀스택으로 역할 확장을 목표로 정보처리기사 취득과 쿠팡 해커톤(애자일 스크럼 기반 24시간 협업) 참여를 통해 실전형 전환 역량을 강화했습니다.' },
     { title: '차렌터카 풀스택 개발 총괄', period: '2025/04 - 2025/10', detail: '차렌터카 서비스에서 도메인 준비부터 개발 환경설정, 예약/운영 기능 구현까지 풀스택 개발 전반을 총괄했습니다.' },
-    { title: '소프트빌더 사업자 운영 (프리랜서)', period: '2025/11 - Present', detail: '소프트빌더를 운영하며 외주 프로젝트를 수행하고, 고객 요구사항에 맞춘 웹/업무 시스템을 프리랜서로 개발·납품하고 있습니다.' },
+    {
+      title: '소프트빌더 사업자 운영 (프리랜서)',
+      period: '2025/11 - Present',
+      detail: '소프트빌더를 운영하며 외주 프로젝트를 수행하고, 고객 요구사항에 맞춘 웹/업무 시스템을 프리랜서로 개발·납품하고 있습니다.',
+      href: 'https://www.softbuilder.kr/',
+    },
   ],
   en: [
     { title: 'Completed 42 Seoul La Piscine', period: 'Early Experience', detail: 'Completed the immersive La Piscine program, strengthening fundamentals in C-based problem solving, peer collaboration, and code-review culture.' },
@@ -215,9 +227,14 @@ const experienceByLanguage = {
     { title: 'Geniefreaks (Frontend Developer)', period: '2021/12/27 - 2024/05', detail: 'Worked as a frontend developer at Geniefreaks, building and operating production web services.' },
     { title: 'Full-Stack Transition Phase', period: '2024/06 - 2025/03', detail: 'Focused on expanding from frontend into full-stack responsibilities by earning the Engineer Information Processing certification and joining the Coupang hackathon for hands-on 24-hour Agile Scrum collaboration.' },
     { title: 'Charentcar Full-Stack Lead', period: '2025/04 - 2025/10', detail: 'Led end-to-end full-stack development at Charentcar, from domain setup and environment configuration to reservation/operations feature delivery.' },
-    { title: 'SoftBuilder Owner (Freelancer)', period: '2025/11 - Present', detail: 'Operating SoftBuilder while delivering outsourced projects as a freelancer, building and shipping custom web and business systems for clients.' },
+    {
+      title: 'SoftBuilder Owner (Freelancer)',
+      period: '2025/11 - Present',
+      detail: 'Operating SoftBuilder while delivering outsourced projects as a freelancer, building and shipping custom web and business systems for clients.',
+      href: 'https://www.softbuilder.kr/',
+    },
   ],
-} as const
+}
 
 export default function PortfolioHome() {
   const experienceSectionRef = useRef<HTMLElement>(null)
@@ -649,6 +666,17 @@ export default function PortfolioHome() {
                   <p className="mb-2 text-xs tracking-wider text-emerald-400 uppercase">{item.period}</p>
                   <h3 className="mb-2 text-xl font-semibold">{item.title}</h3>
                   <p className={`text-sm leading-relaxed ${isDark ? 'text-zinc-400' : 'text-zinc-700'}`}>{item.detail}</p>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`mt-3 inline-flex items-center gap-1.5 text-sm font-medium transition-colors ${isDark ? 'text-emerald-400 hover:text-emerald-300' : 'text-emerald-700 hover:text-emerald-800'}`}
+                    >
+                      <ExternalLink className="w-4 h-4 shrink-0" aria-hidden />
+                      <span>{t.experience.visitSoftBuilder}</span>
+                    </a>
+                  ) : null}
                 </article>
 
                 <div className="flex col-start-2 row-start-1 justify-center">
