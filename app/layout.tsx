@@ -6,8 +6,7 @@ import Script from 'next/script'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Rental Car Toolbox',
-  description: '기사포함렌트카 금액산정 및 기타 유용한 도구들',
+  title: 'ByungMin-Portfolio',
 }
 
 export default function RootLayout({
